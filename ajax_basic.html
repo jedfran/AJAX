@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Basic AJAX Demo</title>
+		<link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="main">
+			<h2>Get The Latest Content:</h2>
+			<div class='content' id="content">
+				<input type="button" class="button" value="Get Content" id="btn_content" onclick="getContent();"/>
+                <input type="button" class="button" value="output" id="btn_output" onclick="myFunction();"/>
+			</div>
+		<script type="text/javascript">
+			
+            // Step 1 setpup xml http request object
+            var ajax = new XMLHttpRequest();
+
+            // Step 2 prepare the open ajax request
+            ajax.open('GET', 'content.html');
+            
+            // Step 3 define the ajax reponse callback method
+            ajax.onreadystatechange = function () {
+                if (ajax.readyState = 4) {
+                    document.getElementById("content").innerHTML = ajax.responseText;
+                }
+            }
+
+            // Step 4 send the ajax request for data
+            function getContent() {
+                ajax.send();
+                document.getElementById("btn_content").style.display = 'none';
+            }
+
+
+            // readyonstatechange
+            function myFunction() {
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        
+                        document.getElementById("btn_output").style.display = 'none';
+                        document.getElementById("content").innerHTML = this.response;
+                        
+                    }
+                }
+                console.log(xmlHttp);
+                xmlHttp.open("GET", 'Random_Text.txt');
+
+                xmlHttp.send();
+            }
+
+		</script>
+    </body>
+</html>
